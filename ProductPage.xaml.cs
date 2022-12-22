@@ -1,5 +1,4 @@
 using Avram_Alin_Lab7.Models;
-using SQLite;
 
 namespace Avram_Alin_Lab7;
 
@@ -19,7 +18,7 @@ public partial class ProductPage : ContentPage
     }
     async void OnDeleteButtonClicked(object sender, EventArgs e)
     {
-        var product = (Product)BindingContext;
+        var product =listView.SelectedItem as Product;
         await App.Database.DeleteProductAsync(product);
         listView.ItemsSource = await App.Database.GetProductsAsync();
     }

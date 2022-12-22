@@ -70,6 +70,20 @@ namespace Avram_Alin_Lab7.Data
                 return _database.InsertAsync(listp);
             }
         }
+
+        public Task<ListProduct> GetListProductAsync(int listid, int prodid)
+        {
+            return _database.Table<ListProduct>().
+                 Where(i => (i.ShopListID == listid) && (i.ProductID == prodid)).FirstOrDefaultAsync();
+        }
+
+        public Task<int> DeleteListProductAsync(ListProduct dellp)
+        {
+
+            return _database.DeleteAsync(dellp);
+
+        }
+
         public Task<List<Product>> GetListProductsAsync(int shoplistid)
         {
             return _database.QueryAsync<Product>(

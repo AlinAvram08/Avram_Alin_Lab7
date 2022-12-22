@@ -30,8 +30,10 @@
                     <TextCell Detail="{Binding Description}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>        <Button Text="Delete Product" MaximumWidthRequest="300"
+                Clicked="OnDeleteItemClicked"/>
         <Button Text="Add/Choose Item to buy" MaximumWidthRequest="300"
                 Clicked="OnChooseButtonClicked"/>
+        
     </StackLayout>
 </ContentPage>

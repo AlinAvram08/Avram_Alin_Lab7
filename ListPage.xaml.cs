@@ -1,4 +1,5 @@
 using Avram_Alin_Lab7.Models;
+using SQLite;
 
 
 namespace Avram_Alin_Lab7;
@@ -23,6 +24,19 @@ public partial class ListPage : ContentPage
         await App.Database.DeleteShopListAsync(slist);
         await Navigation.PopAsync();
     }
+
+    async void OnDeleteItemClicked(object sender, EventArgs e)
+    {
+        var slist = (ShopList)BindingContext;
+        Product p;
+
+        p = listView.SelectedItem as Product;
+
+        var lp = App.Database.GetListProductAsync(slist.ID, p.ID);
+        await App.Database.DeleteListProductAsync(await lp);
+        listView.ItemsSource = await App.Database.GetListProductsAsync(slist.ID);
+    }
+
     async void OnChooseButtonClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new ProductPage((ShopList)
@@ -32,6 +46,7 @@ public partial class ListPage : ContentPage
         });
 
     }
+    
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -39,4 +54,5 @@ public partial class ListPage : ContentPage
 
         listView.ItemsSource = await App.Database.GetListProductsAsync(shopl.ID);
     }
+
 }
